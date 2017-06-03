@@ -1,0 +1,28 @@
+{
+  "name": "marionette",
+  "version": "0.1.0",
+  "description": "RED app template",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "formula test",
+    "dev": "formula dev",
+    "build": "formula build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.xiaohongshu.com:fe/${APP_NAME}.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "@xhs/data-transform": "^0.1.1",
+    "@xhs/launcher": "^0.4.6",
+    "@xhs/yam-container-mixin": "^0.1.6",
+    "@xhs/yam-layout": "^0.3.0",
+    "@xhs/yam-style": "^0.2.0",
+    "@xhs/yam-validations": "^0.1.4",
+    "moment": "^2.18.1"
+  },
+  "private": true
+}
