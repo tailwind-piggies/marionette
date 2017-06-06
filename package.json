@@ -4,17 +4,10 @@
   "description": "RED app template",
   "main": "src/index.js",
   "scripts": {
-    "test": "formula test",
-    "dev": "formula dev",
-    "build": "formula build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.xiaohongshu.com:fe/${APP_NAME}.git"
+    "dev": "formula dev"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "dependencies": {
     "@xhs/data-transform": "^0.1.1",
     "@xhs/launcher": "^0.4.6",
