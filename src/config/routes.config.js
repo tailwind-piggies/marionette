@@ -20,22 +20,22 @@ const needLoginMeta = {
 /* routes will register to vue-router */
 const routes = [
   {
-    path: '/login',
+    path: '/marionette/login',
     name: 'Login',
     component: Login
   },
   {
-    path: '/forgot_password',
+    path: '/marionette/forgot_password',
     name: 'ForgotPassword',
     component: ForgotPassword
   },
   {
-    path: '/reset_password',
+    path: '/marionette/reset_password',
     name: 'ResetPassword',
     component: ResetPassword
   },
   {
-    path: '/',
+    path: '/marionette',
     component: AppLayout,
     meta: needLoginMeta,
     children: [
