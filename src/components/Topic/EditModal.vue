@@ -12,11 +12,11 @@
           :component="{ is: 'input' }"
         >
         </title>
-        <input-area
+        <content
           :node="{ required: true, label: '内容' }"
           :component="{ is: 'input' }"
         >
-        </input-area>
+        </content>
       </yam-form>
     </div>
   </yam-modal>
@@ -40,24 +40,7 @@
       YamForm
     },
     data() {
-      return {
-        validationList: {
-          checkVolumePeople(value) {
-            if (parseInt(value) == value && value >= 0) {
-              return Promise.resolve()
-            } else {
-              return Promise.reject('请输入大于 0 的整数')
-            }
-          },
-          checkVolumePercent(value) {
-            if (typeof parseInt(value) === 'number' && value >= 0 && value <= 1) {
-              return Promise.resolve()
-            } else {
-              return Promise.reject('请输入 0 ~ 1 之间数')
-            }
-          }
-        }
-      }
+      return {}
     },
     props: {
       showModal: {

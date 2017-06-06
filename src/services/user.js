@@ -1,16 +1,6 @@
 import {
-  http
-} from '@xhs/launcher'
-
-import {
-  wrapHttp
-} from '@xhs/data-transform'
-
-
-// conversion data between python & js during api call
-const {
   get, post
-} = wrapHttp(http)
+} from '@xhs/launcher'
 
 export function login(payload) {
   return post('LOGIN', payload, {

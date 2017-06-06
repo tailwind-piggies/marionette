@@ -108,8 +108,5 @@ __pycache__/
 # Build
 ############################
 build
-public*
 dist
 *_dist
-
-

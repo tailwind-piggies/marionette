@@ -2,6 +2,8 @@
   <yam-page-layout name="Topic List">
     <yam-section>
 
+      <yam-button class="new-btn" action="new" @click="handleClickNew">New</yam-button>
+
       <yam-data-table
         :data="topics"
         :columns="columns"
@@ -12,6 +14,7 @@
 
       <edit-modal
         v-model="data"
+        v-if="showModal"
         :showModal="showModal"
         @cancel="handleCancel"
         @confirm="handleConfirm"
@@ -31,7 +34,8 @@
   import {
     YamPageLayout,
     YamSection,
-    YamDataTable
+    YamDataTable,
+    YamButton
   } from '@xhs/yam-layout'
 
   import EditModal from '../../components/Topic/EditModal'
@@ -43,12 +47,14 @@
       YamDataTable,
       YamSection,
       YamPageLayout,
+      YamButton,
       EditModal
     },
     data() {
       return {
         data: null,
         showModal: false,
+        currentTopicId: '',
         columns: [{
           title: 'Title',
           key: 'title',
@@ -64,18 +70,6 @@
               type: 'outline',
               icon: 'trash',
               action: 'edit',
-              modifier: 'primary'
-            }]
-          }
-        }, {
-          title: 'Online/Offline',
-          is: 'buttons',
-          props: {
-            buttons: [{
-              text: 'Online',
-              type: 'outline',
-              icon: 'pencil',
-              action: 'online',
               modifier: 'primary'
             }]
           }
@@ -118,24 +112,55 @@
           })
         })
       },
+      handleClickNew() {
+        this.showModal = true
+        this.data = {}
+      },
+      handleRowAction(type, row) {
+        if (type === 'edit') {
+          this.currentTopicId = row.id
+          this.showModal = true
+          this.data = Object.assign({}, row.content, {
+            title: row.title
+          })
+        } else if (type === 'delete') {
+          this.$confirm('Confirm delete?').then(yes => {
+            if (yes) {
+              topicServices.deleteTopic({
+                id: row.id
+              }).then(() => {
+                this.currentTopicId = ''
+                this.$toast('Action success.')
+                this.getTopics()
+              })
+            }
+          })
+        }
+      },
       handleCancel() {
         this.showModal = false
       },
       handleConfirm(value) {
-        topicServices.postTopics({
-          title: value.title,
-          content: value
-        }).then(() => {
-          this.showModal = false
-          this.$toast('Action success.')
-          this.getTopics()
-        })
-      },
-      handleRowAction(type, row) {
-        if (type === 'edit') {
-          this.showModal = true
-          this.data = Object.assign({}, row.content, {
-            title: row.title
+        if (this.currentTopicId) {
+          topicServices.putTopic({
+            id: this.currentTopicId,
+            title: value.title,
+            content: value
+          }).then(() => {
+            this.currentTopicId = ''
+            this.showModal = false
+            this.$toast('Action success.')
+            this.getTopics()
+          })
+        } else {
+          topicServices.postTopic({
+            title: value.title,
+            content: value
+          }).then(() => {
+            this.currentTopicId = ''
+            this.showModal = false
+            this.$toast('Action success.')
+            this.getTopics()
           })
         }
       }
@@ -145,5 +170,9 @@
       this.getTopics()
     }
   }
-
 </script>
+
+<style lang="stylus" scoped>
+  .new-btn
+    margin-bottom 20px
+</style>

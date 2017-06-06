@@ -1,1 +1,1 @@
-export const APP_NAME = 'Demo Application'
+export const APP_NAME = 'smmds admin'
